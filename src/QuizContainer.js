@@ -22,15 +22,18 @@ const QuizContainer = () => {
                        {
                            context => (
                                 <div>
-                                    <QuizCard 
-                                        quections={context.quiz} 
-                                        showResult = { context.showResult}
-                                    /> 
+                                   {
+                                       !context.isShowResult &&
+                                       <QuizCard 
+                                            quections={context.quiz} 
+                                            showResult = { context.showResult}
+                                        /> 
+                                   }
                                     <div>
                                         {
                                             context.isShowResult && 
                                             <QuizResult 
-                                                result={context.quiz}
+                                                result={context.answeredQuections}
                                             />  
                                         }
                                     </div>

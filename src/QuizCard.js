@@ -20,7 +20,8 @@ class QuizCard extends Component {
         })  
     }
     skipAnswer(id) { 
-          
+        
+        // если пользователь пытается скипнуть последний вопрос, то создать массив скипнутых вопросов и перейти на первый
         if(id === this.state.quections.length - 1 ) {  
             let skiped = []
             this.props.quections.map( item => {
@@ -34,7 +35,10 @@ class QuizCard extends Component {
             })  
         }
         else {  
+            // если пользователь скипает не последний вопрос, то инкремент активного вопроса
             let newActiveNumber = this.state.activeQuection + 1  
+
+            //если новый активный вопрос уже отвечен инкрементить до тех  пор пока не найдется неотвеченный вопрос 
             if(this.props.quections[newActiveNumber].isAnswered === true ) {
                 while(this.props.quections[newActiveNumber].isAnswered === true ) { 
                     newActiveNumber++
@@ -46,9 +50,14 @@ class QuizCard extends Component {
         }
        
     }
-    addAnswer(activeId) {    
+    addAnswer(activeId) {     
+        //newActiveNumber - переменная в которой считается новое значение активного вопроса 
+        //newAnswerCounter - переменная в которой считается новое значение количества ответов
         let newActiveNumber = this.state.activeQuection 
         let newAnswerCounter = this.state.answerCounter + 1
+        
+        // проверка: если активный вопрос является последним для пересчета newActiveNumber
+        // если true: создать массив неотвеченных вопросов и сделать активным первый из неотвеченных
         if( activeId === this.props.quections.length - 1 ) {  
             let skiped = []
              
@@ -58,63 +67,95 @@ class QuizCard extends Component {
                 }
                 return true
             })    
+             
+            // без таймаута не успевает посчитаться skiped[0].id
+            // не знаю как исправить 
             setTimeout(() => {
                 this.setState({ 
                     activeQuection: skiped[0].id
                 }) 
-            }, 200); 
+            }, 100);
+           
 
         } else { 
-            if(this.state.answerCounter < this.props.quections.length - 1) {
+
+            // newActiveNumber всегда плюсуется 
+            
+            // if(this.state.answerCounter < this.props.quections.length - 1) {
                 newActiveNumber++
-                if(this.props.quections[newActiveNumber].isAnswered === true ) {
-                    while(this.props.quections[newActiveNumber].isAnswered === true ) { 
+                //провека: если newActiveNumber после инкремента уже отвеченный или newActiveNumber больше количества вопросов
+                if(this.props.quections[newActiveNumber].isAnswered === true && this.state.answerCounter < this.props.quections.length - 1 ) {
+
+                    //
+                    while(this.state.quections[newActiveNumber].isAnswered === true ) { 
                         if(newActiveNumber < this.props.quections.length) newActiveNumber++
                         else newActiveNumber--
                     }
                 }
-            }
+            // }
             
-        } 
-        console.log(newActiveNumber)
+        }  
         
-        let newAnsweredArray = this.state.answeredQuections.slice()
-        let answer = this.props.quections[activeId]
 
+        // блок ниже создает массив на основе вопросов, ставит ответ пользователя и меняет статус isAnswered 
+        
+        let newAnsweredArray = this.state.answeredQuections.slice() 
+        let answer = this.state.quections[activeId]
+        // let answer = Object.assign({}, this.state.quections[activeId])
+         
+ 
+        //блок бесполезен так как в двух строчках ниже меняется значение не только нового массива но и значение props из контекста 
+        // я не хотел бы менять значен пропсов, но оно меняется , хз 
         answer.isAnswered = true
-        answer.userAnswer = this.state.userAnswer
+        answer.userAnswer = this.state.userAnswer 
 
         newAnsweredArray.push(answer)
+        console.log(answer)
+        console.log(newAnsweredArray)
  
         this.setState({ 
             activeQuection: newActiveNumber, 
             answerCounter: newAnswerCounter, 
-            userAnswer: null
+            userAnswer: null, 
+            answeredQuections: newAnsweredArray, 
         })  
+         
           
-        
+        //если есть ответы на все вопросы - показать результаты
+        // таймаут тк не успевает записаться this.state.answeredQuections
         if(this.state.answerCounter === this.props.quections.length - 1) { 
-            this.props.showResult(this.props.quections)
+            setTimeout(() => {
+                 this.props.showResult(this.state.answeredQuections)
+            }, 100);
         } 
  
     } 
+
+    isRightAnswer(quection) { 
+        this.state.answeredQuections.map( item => { 
+            if(item.id === quection.id) {
+                var classForOption = item.correctAnswer === item.userAnswer ?  'right' : 'wrong'
+            }
+            return classForOption
+        })
+        return 'classForOption'
+    }
     render() {  
         return(
             <Card className="bg-dark text-light"> 
                     {
                         this.state.answerCounter < this.props.quections.length && 
-                        <CardHeader className='border-0'>
-                            {
-                                this.state.activeQuection >= 0 && <div className='d-flex justify-content-between  align-items-center'>
+                        <CardHeader className='border-0'> 
+                                <div className='d-flex justify-content-between  align-items-center'>
                                     <h6 className='mb-0'>
                                         <b>Quection №{ this.state.activeQuection + 1 } </b>
                                     </h6>
-                                    <span className='btn-skip' onClick={()=>(  this.skipAnswer(this.state.activeQuection) )} >
-                                        Skip
-                                    </span> 
-                                </div>
-                            }
-                        
+                                    {   this.state.answerCounter < this.state.quections.length - 1 && 
+                                        <span className='btn-skip' onClick={()=>(  this.skipAnswer(this.state.activeQuection) )} >
+                                            Skip
+                                        </span> 
+                                    }
+                                </div> 
                         </CardHeader>
                     }
                     {
@@ -122,11 +163,11 @@ class QuizCard extends Component {
 
                         <div className='progress-quiz'>
                             {
-                                this.props.quections.map( quection => (
+                                this.state.quections.map( quection => (
                                     <div 
                                         className = { ` progress-quiz-item 
                                                         ${(quection.id === this.state.activeQuection) ? 'active' : ''} 
-                                                        ${quection.isAnswered === true ? 'answered' : ''}
+                                                        ${quection.isAnswered === true ? 'answered' : ''} 
                                                         ${quection.userAnswer === quection.correctAnswer ? 'right' : 'wrong'}
                                                     ` }
                                         key={quection.id}
@@ -141,9 +182,9 @@ class QuizCard extends Component {
                         
                         <CardBody>
                         
-                            <h5>
+                            <h4>
                                 { this.props.quections[this.state.activeQuection].text}
-                            </h5>
+                            </h4>
 
                             {
                                 this.props.quections[this.state.activeQuection].options.map( (option, index) => (
@@ -153,7 +194,7 @@ class QuizCard extends Component {
                                     >
                                         
                                         <i className={` ${ index === this.state.userAnswer ? 'active' : ''} `}></i>
-                                        <p className="custom-control-label2" htmlFor={`customRadio${index}`} >
+                                        <p>
                                             { option }
                                         </p>
                                     </div>
@@ -172,15 +213,7 @@ class QuizCard extends Component {
                             
                         </CardBody>
                     }
-                    {
-                        this.state.answerCounter >= this.props.quections.length && 
-                        <CardBody>
-                            <h5>
-                                Сongratulations! <br></br>
-                                <small>Quiz is Over</small>
-                            </h5>
-                        </CardBody>
-                    }
+                   
                    
             </Card>
         )

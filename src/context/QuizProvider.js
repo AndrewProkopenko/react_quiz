@@ -90,12 +90,13 @@ class QuizProvider extends Component {
             <QuizContext.Provider value={ { 
                 quiz: this.state.quiz,
                 activeQuection: this.state.activeQuection, 
-                answeredQuections: this.state.quiz, 
+                answeredQuections:  this.state.answeredQuections, 
                 isShowResult: this.state.isShowResult, 
 
                 showResult: (answers) => {   
                     this.setState({ 
-                        isShowResult: true
+                        isShowResult: true,
+                        answeredQuections: answers
                     })  
                 }
             } }>

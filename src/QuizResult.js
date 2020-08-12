@@ -13,13 +13,26 @@ export default class QuizResult extends Component {
     }
     render() {
         return (
-            <Card className="bg-dark text-light mt-5 mb-3">
-                <CardHeader>
-                    Your Results ( {this.computedAnswers()}/{this.props.result.length} )
+            <Card className="bg-dark text-light mt-3 mb-3">
+                <CardHeader> 
+                            <div className='d-flex justify-content-between align-items-center'>
+                                <h5>
+                                    Сongratulations! <br></br>
+                                    <small>Quiz is Over</small>
+                                </h5> 
+
+                                <button className='btn btn-answer'>
+                                    Try again!(disabled)
+                                </button>
+                            </div> 
+
+                            <h4>
+                                Your Results ( {this.computedAnswers()}/{this.props.result.length} )
+                            </h4>
                 </CardHeader>
                 {
                     this.props.result.map( item => (
-                        <CardBody className={ `card-body-answer ${item.userAnswer === item.correctAnswer ? 'right' : 'wrong'}`} >
+                        <CardBody className={ `card-body-answer ${item.userAnswer === item.correctAnswer ? 'right' : 'wrong'}`} key={item.id} >
                             <h5>
                                 { item.text}
                             </h5>
