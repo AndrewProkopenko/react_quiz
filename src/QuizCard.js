@@ -12,6 +12,9 @@ class QuizCard extends Component {
             answerCounter: 0
         } 
         this.addAnswer = this.addAnswer.bind(this)
+        this.skipAnswer = this.skipAnswer.bind(this)
+        this.renderProgress = this.renderProgress.bind(this)
+        this.isButtonDisabled = this.isButtonDisabled.bind(this)
     }
    
     changeAnswer(id) { 
@@ -19,8 +22,8 @@ class QuizCard extends Component {
             userAnswer : id
         })  
     }
-    skipAnswer(id) { 
-        
+    skipAnswer() { 
+        let id = this.state.activeQuection
         // если пользователь пытается скипнуть последний вопрос, то создать массив скипнутых вопросов и перейти на первый
         if(id === this.state.quections.length - 1 ) {  
             let skiped = []
@@ -48,9 +51,13 @@ class QuizCard extends Component {
                 activeQuection: newActiveNumber
             })
         }
+        this.setState( { 
+            userAnswer : null
+        })  
        
     }
-    addAnswer(activeId) {     
+    addAnswer() {     
+        let activeId = this.state.activeQuection
         //newActiveNumber - переменная в которой считается новое значение активного вопроса 
         //newAnswerCounter - переменная в которой считается новое значение количества ответов
         let newActiveNumber = this.state.activeQuection 
@@ -131,27 +138,65 @@ class QuizCard extends Component {
  
     } 
 
-    isRightAnswer(quection) { 
-        this.state.answeredQuections.map( item => { 
-            if(item.id === quection.id) {
-                var classForOption = item.correctAnswer === item.userAnswer ?  'right' : 'wrong'
-            }
-            return classForOption
-        })
-        return 'classForOption'
+    renderProgress() { 
+        return(
+            this.state.answerCounter < this.props.quections.length && 
+
+            <div className='progress-quiz'>
+                {
+                    this.state.quections.map( quection => ( 
+                        <div 
+                            className = { ` progress-quiz-item 
+                                            ${(quection.id === this.state.activeQuection) ? 'active' : ''} 
+                                            ${quection.isAnswered === true ? 'answered' : ''} 
+                                            ${quection.userAnswer === quection.correctAnswer ? 'right' : 'wrong'}
+                                        ` }
+                            key={quection.id}
+                        ></div>
+                    ) )
+                }
+            
+            </div>
+        )
     }
+    renderOptions() { 
+        return(
+            this.props.quections[this.state.activeQuection].options.map( (option, index) => (
+                <div className="option_item" 
+                     key={index}
+                     onClick={ () => {this.changeAnswer(index)} }     
+                >
+                    
+                    <i className={` ${ index === this.state.userAnswer ? 'active' : ''} `}></i>
+                    <p>
+                        { option }
+                    </p>
+                </div>
+            ))
+        )
+    }
+    isButtonDisabled() { 
+       return (this.state.userAnswer == null) ? true : false
+    } 
+    
     render() {  
+        let activeQuection = this.state.activeQuection, 
+            quectionsLength= this.props.quections.length, 
+            answerCounter = this.state.answerCounter, 
+            quectionText = this.props.quections[this.state.activeQuection].text
+
         return(
             <Card className="bg-dark text-light"> 
                     {
-                        this.state.answerCounter < this.props.quections.length && 
+                        answerCounter < quectionsLength && 
                         <CardHeader className='border-0'> 
                                 <div className='d-flex justify-content-between  align-items-center'>
                                     <h6 className='mb-0'>
-                                        <b>Quection №{ this.state.activeQuection + 1 } </b>
+                                        <b>Quection №{ activeQuection + 1 } </b>
                                     </h6>
-                                    {   this.state.answerCounter < this.state.quections.length - 1 && 
-                                        <span className='btn-skip' onClick={()=>(  this.skipAnswer(this.state.activeQuection) )} >
+                                    {   
+                                        answerCounter < quectionsLength - 1 && 
+                                        <span className='btn-skip' onClick={this.skipAnswer} >
                                             Skip
                                         </span> 
                                     }
@@ -159,54 +204,24 @@ class QuizCard extends Component {
                         </CardHeader>
                     }
                     {
-                        this.state.answerCounter < this.props.quections.length && 
-
-                        <div className='progress-quiz'>
-                            {
-                                this.state.quections.map( quection => (
-                                    <div 
-                                        className = { ` progress-quiz-item 
-                                                        ${(quection.id === this.state.activeQuection) ? 'active' : ''} 
-                                                        ${quection.isAnswered === true ? 'answered' : ''} 
-                                                        ${quection.userAnswer === quection.correctAnswer ? 'right' : 'wrong'}
-                                                    ` }
-                                        key={quection.id}
-                                    ></div>
-                                ) )
-                            }
-                        
-                        </div>
+                        this.renderProgress()
                     }
                     { 
-                        this.state.answerCounter < this.props.quections.length &&  
+                        answerCounter < quectionsLength &&  
                         
                         <CardBody>
                         
                             <h4>
-                                { this.props.quections[this.state.activeQuection].text}
+                                { quectionText }
                             </h4>
 
-                            {
-                                this.props.quections[this.state.activeQuection].options.map( (option, index) => (
-                                    <div className="option_item" 
-                                         key={index}
-                                         onClick={()=>{this.changeAnswer(index)}}     
-                                    >
-                                        
-                                        <i className={` ${ index === this.state.userAnswer ? 'active' : ''} `}></i>
-                                        <p>
-                                            { option }
-                                        </p>
-                                    </div>
-                                ))
-                            } 
+                            { this.renderOptions() }  
 
-                            
                             <button 
                                 type="button" 
                                 className="btn btn-answer" 
-                                disabled={(this.state.userAnswer == null) ? true : false}
-                                onClick={ () => { this.addAnswer(this.state.activeQuection) } }
+                                disabled={ this.isButtonDisabled() } 
+                                onClick={ this.addAnswer }
                             >
                                 Answer
                             </button>

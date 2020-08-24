@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import {Card, CardHeader, CardBody} from 'reactstrap'
 
 export default class QuizResult extends Component {
+    constructor(props) {
+        super(props) 
+        
+        this.renderAnswers = this.renderAnswers.bind(this)
+        this.renderOptions = this.renderOptions.bind(this)
+    }
    
     computedAnswers() { 
         let counter = 0
@@ -11,7 +17,47 @@ export default class QuizResult extends Component {
         })
         return counter
     }
+    renderAnswers() {
+        return(
+            this.props.result.map( item => (
+                <CardBody className={ `card-body-answer ${item.userAnswer === item.correctAnswer ? 'right' : 'wrong'}`} key={item.id} >
+                    <small className='text-muted'>
+                        Quection № { item.id + 1}
+                    </small>
+                    <h5>
+                        { item.text}
+                    </h5>
+                    { 
+                        this.renderOptions(item) 
+                    }
+                </CardBody>
+            ))
+        )
+    }
+
+    renderOptions(item) { 
+        return(
+            item.options.map( (option, index) => (
+                <div className="custom-control pl-0 custom-radio my-3" key={index}> 
+                    <label className={` 
+                                        custom-control-label custom-control-label-answer 
+                                        ${item.userAnswer === index ? 'color' : ''}
+                                        ${item.userAnswer === item.correctAnswer ? 'right' : 'wrong'}
+                                    `} >
+                        { option }
+                    </label>
+                    { 
+                        item.userAnswer === index && <span> - Your answer</span>
+                    }
+                    {
+                        item.userAnswer !== item.correctAnswer && item.correctAnswer === index && <span className='text-muted'> - Correct answer</span>
+                    }
+                </div>
+            )) 
+        )
+    }
     render() {
+        let yourResult = this.computedAnswers() +'/'+ this.props.result.length
         return (
             <Card className="bg-dark text-light mt-3 mb-3">
                 <CardHeader> 
@@ -27,38 +73,12 @@ export default class QuizResult extends Component {
                             </div> 
 
                             <h4>
-                                Your Results ( {this.computedAnswers()}/{this.props.result.length} )
+                                Your Result ( {yourResult} )
                             </h4>
                 </CardHeader>
                 {
-                    this.props.result.map( item => (
-                        <CardBody className={ `card-body-answer ${item.userAnswer === item.correctAnswer ? 'right' : 'wrong'}`} key={item.id} >
-                            <h5>
-                                { item.text}
-                            </h5>
-                            { 
-                                item.options.map( (option, index) => (
-                                    <div className="custom-control pl-0 custom-radio my-3" key={index}> 
-                                        <label className={` 
-                                                            custom-control-label custom-control-label-answer 
-                                                            ${item.userAnswer === index ? 'color' : ''}
-                                                            ${item.userAnswer === item.correctAnswer ? 'right' : 'wrong'}
-                                                        `} >
-                                            { option }
-                                        </label>
-                                        { 
-                                            item.userAnswer === index && <span> - Your answer</span>
-                                        }
-                                        {
-                                            item.userAnswer !== item.correctAnswer && item.correctAnswer === index &&   <span className='text-muted'> - Correct answer</span>
-                                        }
-                                    </div>
-                                )) 
-                            }
-                        </CardBody>
-                    ))
-                }
-                
+                    this.renderAnswers()
+                } 
             </Card>
         )
     }

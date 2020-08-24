@@ -21,7 +21,7 @@ const QuizContainer = () => {
                    <QuizContext.Consumer>
                        {
                            context => (
-                                <div>
+                                <>
                                    {
                                        !context.isShowResult &&
                                        <QuizCard 
@@ -37,7 +37,7 @@ const QuizContainer = () => {
                                             />  
                                         }
                                     </div>
-                                </div>
+                                </>
                            ) 
                        } 
                        
