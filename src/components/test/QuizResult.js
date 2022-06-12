@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Card, CardHeader, CardBody} from 'reactstrap'
+import {Card } from 'react-bootstrap'
 
 export default class QuizResult extends Component {
     constructor(props) {
@@ -20,7 +20,7 @@ export default class QuizResult extends Component {
     renderAnswers() {
         return(
             this.props.result.map( item => (
-                <CardBody className={ `card-body-answer ${item.userAnswer === item.correctAnswer ? 'right' : 'wrong'}`} key={item.id} >
+                <Card.Body className={ `card-body-answer ${item.userAnswer === item.correctAnswer ? 'right' : 'wrong'}`} key={item.id} >
                     <small className='text-muted'>
                         Quection № { item.id + 1}
                     </small>
@@ -30,7 +30,7 @@ export default class QuizResult extends Component {
                     { 
                         this.renderOptions(item) 
                     }
-                </CardBody>
+                </Card.Body>
             ))
         )
     }
@@ -60,7 +60,7 @@ export default class QuizResult extends Component {
         let yourResult = this.computedAnswers() +'/'+ this.props.result.length
         return (
             <Card className="bg-dark text-light mt-3 mb-3">
-                <CardHeader> 
+                <Card.Header> 
                             <div className='d-flex justify-content-between align-items-center'>
                                 <h5>
                                     Сongratulations! <br></br>
@@ -75,7 +75,7 @@ export default class QuizResult extends Component {
                             <h4>
                                 Your Result ( {yourResult} )
                             </h4>
-                </CardHeader>
+                </Card.Header>
                 {
                     this.renderAnswers()
                 } 
