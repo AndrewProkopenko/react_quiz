@@ -9,7 +9,7 @@ const QuizContainer = () => {
     return (
         <Container>
             <Row className={'justify-content-center'}>
-                <Col md='6'> 
+                <Col md='8'> 
                     <ConsumerContainer />
                 </Col>
             </Row>

@@ -16,7 +16,7 @@ const ConsumerContainer = () => {
             {
                 !isShowResult &&
                 <QuizCard
-                    quections={type === 'orf' ?  quiz_orf : quiz_punk }
+                    quections={type === 'orf' ? quiz_orf : quiz_punk}
                     showResult={showResult}
                 />
             }

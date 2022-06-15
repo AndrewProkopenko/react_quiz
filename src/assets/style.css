@@ -1,31 +1,32 @@
-html, body {  
-    background: #515a62 ; 
-    padding-top: 30px;
+html, body {
+    background-image: url(background.png);   
+    background-repeat: repeat;
+    background-size: contain;
+    background-color: rgb(171 214 241);
 }
 
 .btn-answer {   
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #37e05f; 
-    border: 2px solid #37e05f;
-    font-size: 16px;
+    background: #005183;  
+    outline: 2px solid #005183 outset;
+    font-size: 20px;
     line-height: 16px;
-    font-weight: 400; 
-    color: #0d3b07;
-    height: 40px;
-    width: 150px; 
-    margin-top: 20px;
+    font-weight: 600; 
+    color: #dbe8fd;
+    height: 50px;
+    width: 100%;  
 }
 
 .btn-answer:hover  { 
-    background: none;
-    color: #37e05f;
+    background: #0766a2; 
+    color: #ffffff;
 }
 .btn-answer:disabled { 
     opacity: .5;
-    background: #37e05f; 
-    color: #0d3b07;
+    background: #a9d5f1; 
+    color: #070a3b;
 }
 .btn-answer:focus {
     box-shadow: none;
@@ -121,8 +122,9 @@ html, body {
 }
 .option_item i { 
     display: flex;
-    width: 16px;
-    height: 16px;
+    min-width: 20px;
+    width: 20px;
+    height: 20px;
     margin-right: 8px; 
     background: #ffffff;
     margin-top: 4px;
@@ -130,8 +132,8 @@ html, body {
     transition: 300ms all;
 } 
 .option_item i.active {  
-    background:#37e05f;
-    border: 1px solid #b5f0c4
+    background:#47a9e6;
+    border: 5px solid #005183
 }
 .option_item p {  
     margin-bottom: 0; 
