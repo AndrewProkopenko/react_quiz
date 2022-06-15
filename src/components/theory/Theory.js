@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Col, Container, Row } from 'react-bootstrap'
+import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import { NavLink, useParams } from 'react-router-dom'
 import OrfBase from './OrfBase'
 import PunkBase from './PunkBase'
@@ -12,12 +12,18 @@ const Theory = () => {
         <Container>
             <Row>
                 <Col>
-                    <h3>Теория по {type === 'orf' ? 'орфографии' : 'пунктуации'}</h3>
+                    <Card className='mt-5'>
+                        <Card.Header>
+                            <h3 className='mb-0 text-center'>Теория по {type === 'orf' ? 'орфографии' : 'пунктуации'}</h3>
+                        </Card.Header>
+                    </Card>
                     {type === 'orf' ? <OrfBase /> : <PunkBase />}
 
-                    <Button as={NavLink} to={`/react_quiz/test/${type}`} >
-                        Начать тест
-                    </Button>
+                    <div className='d-grid'>
+                        <Button as={NavLink} size={'lg'} to={`/react_quiz/test/${type}`} >
+                            Начать тест
+                        </Button>
+                    </div>
                 </Col>
             </Row>
         </Container>

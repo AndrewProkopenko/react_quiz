@@ -1,9 +1,11 @@
 html, body {
     background-image: url(background.png);   
-    background-repeat: repeat;
-    background-size: contain;
+    /* background-repeat: repeat;
+    background-size: contain; */
     background-color: rgb(171 214 241);
+    color: #0f0f0f;
 }
+ 
 
 .btn-answer {   
     display: flex;

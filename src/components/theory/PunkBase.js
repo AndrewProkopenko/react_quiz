@@ -2,7 +2,7 @@ import React from 'react'
 import {Accordion} from 'react-bootstrap'
 const PunkBase = () => {
   return (
-    <div><Accordion accordion-flush>
+    <div><Accordion className='mt-3 mb-4'>
     <Accordion.Item eventKey="0">
       <Accordion.Header>Точка и точка с запятой</Accordion.Header>
       <Accordion.Body>
