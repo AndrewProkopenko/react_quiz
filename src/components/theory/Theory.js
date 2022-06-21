@@ -17,13 +17,9 @@ const Theory = () => {
                             <h3 className='mb-0 text-center'>Теория по {type === 'orf' ? 'орфографии' : 'пунктуации'}</h3>
                         </Card.Header>
                     </Card>
-                    {type === 'orf' ? <OrfBase /> : <PunkBase />}
+                    <Card.Body>
 
-                    <div className='d-grid'>
-                        <Button as={NavLink} size={'lg'} to={`/react_quiz/test/${type}`} >
-                            Начать тест
-                        </Button>
-                    </div>
+                    </Card.Body> 
                 </Col>
             </Row>
         </Container>
