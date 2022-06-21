@@ -1,10 +1,11 @@
 import React from 'react'
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
 import logo from '../../assets/logo.png'
 
 const Main = () => {
   return (
-    <Navbar bg="light" expand="lg"> 
+    <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand href="/react_quiz">
           <img
@@ -17,11 +18,15 @@ const Main = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/react_quiz/theory/orf">Теория орфография</Nav.Link>
-            <Nav.Link href="/react_quiz/theory/punk">Теория пунктуация</Nav.Link>
-            <NavDropdown title="Тест" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/react_quiz/test/orf">Тест орфография</NavDropdown.Item>
-              <NavDropdown.Item href="/react_quiz/test/punk">Тест пунктуация</NavDropdown.Item>
+            <NavLink to="/theory/orf" className={'py-3 text-dark text-decoration-none mr-4'}>Теория орфография</NavLink>
+            <NavLink to="/theory/punk" className={'py-3 text-dark text-decoration-none mr-4'}>Теория пунктуация</NavLink>
+            <NavDropdown title="Тест" id="basic-nav-dropdown" className={'py-2 text-dark text-decoration-none'}>
+              <NavDropdown.Item >
+                <NavLink to="/test/orf" className={'py-3 text-dark text-decoration-none'}>Тест орфография</NavLink>
+              </NavDropdown.Item>
+              <NavDropdown.Item  >
+                <NavLink to="/test/punk" className={'py-3 text-dark text-decoration-none'}>Тест пунктуация</NavLink>
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

@@ -18,7 +18,7 @@ const Theory = () => {
                         </Card.Header>
                         <Card.Body>
                             {type === 'orf' ? <OrfBase /> : <PunkBase />}
-                            <Button as={NavLink} to={`/react_quiz/test/${type}`}>
+                            <Button as={NavLink} to={`/test/${type}`}>
                                 Начать тест
                             </Button>
                         </Card.Body>

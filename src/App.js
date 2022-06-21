@@ -14,10 +14,10 @@ function App() {
     <QuizProvider>
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/react_quiz/" element={ <Main /> } />
-          <Route path="/react_quiz/theory/:type" element={<Theory />} />
+          <Route path="/" element={ <Main /> } />
+          <Route path="/theory/:type" element={<Theory />} />
         </Route>
-        <Route path="/react_quiz/test/:type" element={<TestLayout />} />
+        <Route path="/test/:type" element={<TestLayout />} />
         <Route path="/*" element={< Error404 />} />
       </Routes>
       {/* <QuizContainer /> */}
