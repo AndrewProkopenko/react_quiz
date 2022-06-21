@@ -1,25 +1,27 @@
 {
   "files": {
-    "main.css": "/react_quiz/static/css/main.c3d21107.chunk.css",
-    "main.js": "/react_quiz/static/js/main.ecd2f293.chunk.js",
-    "main.js.map": "/react_quiz/static/js/main.ecd2f293.chunk.js.map",
+    "main.css": "/react_quiz/static/css/main.4971b7c0.chunk.css",
+    "main.js": "/react_quiz/static/js/main.82bcb6d7.chunk.js",
+    "main.js.map": "/react_quiz/static/js/main.82bcb6d7.chunk.js.map",
     "runtime-main.js": "/react_quiz/static/js/runtime-main.ac47e39f.js",
     "runtime-main.js.map": "/react_quiz/static/js/runtime-main.ac47e39f.js.map",
     "static/css/2.11829350.chunk.css": "/react_quiz/static/css/2.11829350.chunk.css",
-    "static/js/2.ac838ff0.chunk.js": "/react_quiz/static/js/2.ac838ff0.chunk.js",
-    "static/js/2.ac838ff0.chunk.js.map": "/react_quiz/static/js/2.ac838ff0.chunk.js.map",
+    "static/js/2.5422026e.chunk.js": "/react_quiz/static/js/2.5422026e.chunk.js",
+    "static/js/2.5422026e.chunk.js.map": "/react_quiz/static/js/2.5422026e.chunk.js.map",
     "index.html": "/react_quiz/index.html",
-    "precache-manifest.347ece8b47d22063673dfd7d8470fd8e.js": "/react_quiz/precache-manifest.347ece8b47d22063673dfd7d8470fd8e.js",
+    "precache-manifest.047eb66caebb2bca57f2263673688bbb.js": "/react_quiz/precache-manifest.047eb66caebb2bca57f2263673688bbb.js",
     "service-worker.js": "/react_quiz/service-worker.js",
     "static/css/2.11829350.chunk.css.map": "/react_quiz/static/css/2.11829350.chunk.css.map",
-    "static/css/main.c3d21107.chunk.css.map": "/react_quiz/static/css/main.c3d21107.chunk.css.map",
-    "static/js/2.ac838ff0.chunk.js.LICENSE.txt": "/react_quiz/static/js/2.ac838ff0.chunk.js.LICENSE.txt"
+    "static/css/main.4971b7c0.chunk.css.map": "/react_quiz/static/css/main.4971b7c0.chunk.css.map",
+    "static/js/2.5422026e.chunk.js.LICENSE.txt": "/react_quiz/static/js/2.5422026e.chunk.js.LICENSE.txt",
+    "static/media/style.css": "/react_quiz/static/media/background.6317c882.png",
+    "static/media/text.png": "/react_quiz/static/media/text.dc45f1e4.png"
   },
   "entrypoints": [
     "static/js/runtime-main.ac47e39f.js",
     "static/css/2.11829350.chunk.css",
-    "static/js/2.ac838ff0.chunk.js",
-    "static/css/main.c3d21107.chunk.css",
-    "static/js/main.ecd2f293.chunk.js"
+    "static/js/2.5422026e.chunk.js",
+    "static/css/main.4971b7c0.chunk.css",
+    "static/js/main.82bcb6d7.chunk.js"
   ]
 }
