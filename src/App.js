@@ -6,14 +6,15 @@ import { Route, Routes } from 'react-router-dom';
 import Error404 from './components/404/Error404'; 
 import Theory from './components/theory/Theory'; 
 import MainLayout from './components/layout/MainLayout';
-import TestLayout from './components/layout/TestLayout';
+import TestLayout from './components/layout/TestLayout'; 
+import Main from './components/Main';
 
 function App() {
   return (
     <QuizProvider>
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/react_quiz/" element={() => <h5>main</h5> } />
+          <Route path="/react_quiz/" element={ <Main /> } />
           <Route path="/react_quiz/theory/:type" element={<Theory />} />
         </Route>
         <Route path="/react_quiz/test/:type" element={<TestLayout />} />
@@ -22,6 +23,6 @@ function App() {
       {/* <QuizContainer /> */}
     </QuizProvider>
   );
-}
+  }
 
 export default App;
