@@ -16,10 +16,10 @@ const Theory = () => {
                         <Card.Header>
                             <h3 className='mb-0 text-center'>Теория по {type === 'orf' ? 'орфографии' : 'пунктуации'}</h3>
                         </Card.Header>
+                        <Card.Body>
+                            {type === 'orf' ? <OrfBase /> : <PunkBase />}
+                        </Card.Body>
                     </Card>
-                    <Card.Body>
-
-                    </Card.Body> 
                 </Col>
             </Row>
         </Container>
